@@ -405,7 +405,7 @@ body{padding-bottom:78px}
 /* ===== கடை விவரம் – இங்கே மட்டும் மாற்றினால் போதும் =====
    phone: நாட்டு குறியீட்டுடன், + இல்லாமல். எ.கா "919876543210"
    காலியாக விட்டால், WhatsApp-ல் யாருக்கு அனுப்புவது என்று கேட்கும். */
-const SHOP = { phone: "919894975134", address: "", hours: "",
+const SHOP = { phone: "919894975134", address: "", hours: "", insta: "mangai_malaragam",
   // Apps Script Web App URL (…/exec) இங்கே paste பண்ணுங்க. காலியா இருந்தா WhatsApp மட்டும் வேலை செய்யும்
   api: "https://script.google.com/macros/s/AKfycbyG9uc3_q_b-5Xc_46QV69iJEkY9gidoo5tyMRPzjYqx6lvRwD_TI46LrRCbxnqvXa3/exec" };
 
@@ -510,7 +510,27 @@ document.querySelectorAll('input[name="mode"]').forEach(r=>r.addEventListener("c
   if(SHOP.phone) parts.push(`<p>அழைக்க: <a href="tel:+${SHOP.phone}">+${SHOP.phone}</a></p>`);
   if(SHOP.address) parts.push(`<p>முகவரி: ${SHOP.address}</p>`);
   if(SHOP.hours) parts.push(`<p>நேரம்: ${SHOP.hours}</p>`);
+  if(SHOP.insta) parts.push(`<p>Instagram: <a href="https://instagram.com/${SHOP.insta}" target="_blank" rel="noopener">@${SHOP.insta}</a></p>`);
   c.innerHTML = parts.join("");
+})();
+
+// Instagram links: hero button + footer
+(function(){
+  if(!SHOP.insta) return;
+  const url = "https://instagram.com/" + SHOP.insta;
+  const cta = document.querySelector(".hero .cta");
+  if(cta){
+    const a = document.createElement("a");
+    a.className = "btn alt"; a.href = url; a.target = "_blank"; a.rel = "noopener";
+    a.textContent = "Instagram-ல் பார்";
+    cta.appendChild(a);
+  }
+  const ft = document.querySelector("footer");
+  if(ft){
+    const p = document.createElement("p");
+    p.innerHTML = 'Instagram: <a href="' + url + '" target="_blank" rel="noopener">@' + SHOP.insta + '</a>';
+    ft.appendChild(p);
+  }
 })();
 
 function fmtDate(v){
